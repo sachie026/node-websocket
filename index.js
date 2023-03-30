@@ -33,11 +33,7 @@ const http = require("http");
 
 const server = http.createServer(app);
 const { Server } = require("socket.io");
-const io = new Server(server, {
-  cors: {
-    origin: "*",
-  },
-});
+const io = new Server(server);
 
 app.get("/", (req, res) => {
   res.send("<h1>Hello world</h1>");

@@ -1,5 +1,5 @@
 const express = require("express");
-const socketio = require("socket.io");
+const { Server } = require("socket.io");
 
 const app = express();
 
@@ -11,7 +11,7 @@ const server = app.listen(1337, () => {
   console.log("Server running!");
 });
 
-const io = socketio(server);
+const io = new Server(server);
 
 io.on("connection", (socket) => {
   console.log("New connection");

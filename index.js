@@ -15,6 +15,7 @@ const io = new Server(server);
 
 io.on("connection", (socket) => {
   console.log("New connection");
+  io.emit("chat message", "New connection");
   socket.on("chat message", (msg) => {
     io.emit("chat message", msg);
   });

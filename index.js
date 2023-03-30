@@ -1,5 +1,7 @@
-import { WebSocketServer } from "ws";
-import { GEOMETRY_MAXIMUM_SIZE, GEOMETRY_MINIMUM_SIZE } from "./constants.js";
+var { WebSocketServer } = require("ws");
+
+const GEOMETRY_MINIMUM_SIZE = 0.75;
+const GEOMETRY_MAXIMUM_SIZE = 1.25;
 
 const wss = new WebSocketServer({ port: 8080 });
 

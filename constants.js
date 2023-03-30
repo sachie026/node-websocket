@@ -1,0 +1,2 @@
+export const GEOMETRY_MINIMUM_SIZE = 0.75;
+export const GEOMETRY_MAXIMUM_SIZE = 1.25;

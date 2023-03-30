@@ -27,13 +27,19 @@
 const express = require("express");
 const app = express();
 const http = require("http");
-// const cors = require("cors");
+const cors = require("cors");
 
-// app.use(cors());
+app.use(cors());
 
 const server = http.createServer(app);
 const { Server } = require("socket.io");
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: "*:*",
+  },
+});
+
+// io.set()
 
 app.get("/", (req, res) => {
   res.send("<h1>Hello world</h1>");

@@ -24,39 +24,26 @@
 //     socket.emit("chat message", msg);
 //   });
 // });
-
-const http = require("http");
 const express = require("express");
-const socketio = require("socket.io");
-const cors = require("cors");
-
-// const { addUser, removeUser, getUser, getUsersInRoom } = require("./users");
-
-const router = require("./router");
-
 const app = express();
+const http = require("http");
 const server = http.createServer(app);
-const io = socketio(server);
+const { Server } = require("socket.io");
+const io = new Server(server);
 
-app.use(cors());
-app.use(router);
+app.get("/", (req, res) => {
+  res.send("<h1>Hello world</h1>");
+});
 
-io.on("connect", (socket) => {
-  socket.on("sendMessage", (message) => {
-    // const user = getUser(socket.id);
-
-    io.emit("message", { text: message });
-
-    // callback();
-  });
-
-  socket.on("disconnect", () => {
-    // const user = removeUser(socket.id);
-
-    io.emit("message", "disconnected");
+io.on("connection", (socket) => {
+  console.log("a user connected");
+  socket.broadcast.emit("hi");
+  io.emit("chat message", "hi");
+  socket.on("chat message", (msg) => {
+    console.log("message: " + msg);
   });
 });
 
-server.listen(process.env.PORT || 5000, () =>
-  console.log(`Server has started.`)
-);
+server.listen(3000, () => {
+  console.log("listening on *:3000");
+});
